@@ -120,7 +120,30 @@ class Solution {
 
 ### **...**
 
-```
+```golang
+//将此问题转化为求nums的k个元素的子集问题。
+func solution(nums[]int, k, target int) [][]int {
+  var temp []int
+  var res [][]int
+  dfs := func(cur int) {
+    if len(temp) + (len(nums) - cur + 1) < k {
+      return
+    }
+    if len(temp) == k {
+        var sum int
+        for i := 0; i < k; i++ { sum += temp[i] }
+        if sum == target { res = append(res, temp) } //满足条件的子集
+    }
+    
+    temp = append(temp, nums[cur]) //选择当前位置的元素
+    dfs(cur + 1)
+    temp = temp[:len(temp)-1] //不选择当前位置的元素
+    dfs(cur + 1)
+  }
+  
+  dfs(0)
+  return res
+}
 
 ```
 
