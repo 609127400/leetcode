@@ -76,6 +76,44 @@ class Solution {
 }
 ```
 
+```golang
+
+func Solution(arr1, arr2 []int) err {
+	if len(arr1) == 0 || len(arr2) == 0 { return fmt.Errorf("args error") }
+	
+	merge := func(a1, a2 []int) []int {
+		l1 := len(a1)
+		l2 := len(a2)
+		k  := len(a1) + len(a2)
+		a1 = append(a1, a2...)
+		for ; k >= 0; k-- {
+			if l1 >= 0 && l2 >= 0 {
+				if a1[l1] > a2[l2] {
+					a1[k] = a1[l1]
+					l1--
+				}else {
+					a1[k] = a2[l2]
+					l2--
+				}
+			}else {
+				if l1 < 0 {
+					a1[k] = a2[l2]
+					l2--
+				}else {
+					a1[k] = a1[l1]
+					l1--
+				}
+			}
+		}
+		return a1
+	}
+	
+	arr := merge(arr1, arr2)
+	fmt.Println(arr)
+	return nil
+}
+```
+
 ### **...**
 
 ```
